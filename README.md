@@ -55,3 +55,7 @@ The project includes a `Procfile` and `requirements.txt` (containing `gunicorn`)
    git push heroku master
    ```
 
+## Future Considerations (KIV)
+
+Experimental hosting options are being considered, specifically the use of WASM or PyScript to enable hosting on static services such as GitHub Pages.
+
