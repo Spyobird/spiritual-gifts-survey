@@ -20,5 +20,5 @@ SCORING_MAP = {
 def calculate_scores(responses):
     scores = {}
     for gift, item_ids in SCORING_MAP.items():
-        scores[gift] = sum(int(responses.get(str(item_id), 0)) for item_id in item_ids)
+        scores[gift] = sum(int(responses.get(str(item_id - 1), 0)) for item_id in item_ids)
     return scores

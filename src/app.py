@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from src.scoring import calculate_scores
+from scoring import calculate_scores
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -11,9 +11,9 @@ def create_app():
     @app.route('/api/score', methods=['POST'])
     def score():
         data = request.get_json()
-        if not data:
-            return jsonify({"error": "No data provided"}), 400
-        scores = calculate_scores(data)
+        if not data or 'responses' not in data:
+            return jsonify({"error": "No responses provided"}), 400
+        scores = calculate_scores(data['responses'])
         return jsonify({"scores": scores})
 
     return app

@@ -7,7 +7,12 @@ A web application designed to help members identify their spiritual gifts throug
 - **Backend:** Python (Flask)
 - **Frontend:** Vanilla JavaScript, HTML, Pico.css
 - **Visualization:** Chart.js
-- **Testing:** pytest
+## Testing
+
+- **Backend:** Use `pytest` for scoring logic and API endpoints. Run via `export PYTHONPATH=. && venv/bin/pytest`.
+- **Frontend/E2E:** Use Playwright for UI verification. 
+- **Guidance:** Follow the `browser-automation-testing` skill for triangulating UI bugs using Network, Console, DOM, and Visual evidence.
+
 
 ## Architecture
 
