@@ -34,3 +34,24 @@ It is recommended to use a virtual environment to keep dependencies isolated:
 ### Server Mode
 The application is configured with `debug=True` in `src/app.py`, which enables automatic reloading when code changes are detected.
 
+## Hosting & Deployment (Heroku)
+
+This application is designed to be deployed to a free or hobby tier on Heroku. Heroku uses an Ubuntu-based environment.
+
+### Configuration
+The project includes a `Procfile` and `requirements.txt` (containing `gunicorn`) to handle production serving.
+
+### Deployment Steps
+1. **Install Heroku CLI** and log in:
+   ```bash
+   heroku login
+   ```
+2. **Create a new Heroku app**:
+   ```bash
+   heroku create
+   ```
+3. **Deploy the code**:
+   ```bash
+   git push heroku master
+   ```
+
