@@ -1,0 +1,9 @@
+.env
+.claude
+venv
+
+litellm_config.yaml
+.DS_Store
+**/__pycache__/
+*.py[cod]
+*$py.class
