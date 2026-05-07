@@ -107,15 +107,105 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function finishSurvey() {
-        console.log('Survey Finished. Responses:', responses);
+    async function finishSurvey() {
         appContainer.innerHTML = `
             <div class="results-placeholder">
                 <h3>Assessment Complete!</h3>
                 <p>Thank you for completing the survey. Your results are being calculated...</p>
-                <p><i>(Results visualization will be implemented in the next task)</i></p>
+                <div class="spinner"></div>
             </div>
         `;
+
+        try {
+            const response = await fetch('/api/score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ responses }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            renderResults(data);
+        } catch (error) {
+            console.error('Error submitting survey:', error);
+            appContainer.innerHTML = `
+                <div class="error-container">
+                    <h3>Submission Error</h3>
+                    <p>Sorry, there was a problem calculating your results: ${error.message}</p>
+                    <button id="retry-btn">Retry Submission</button>
+                </div>
+            `;
+            document.getElementById('retry-btn').addEventListener('click', finishSurvey);
+        }
+    }
+
+    function renderResults(data) {
+        appContainer.innerHTML = `
+            <div class="results-container">
+                <h3>Your Spiritual Gifts Profile</h3>
+                <p>Below are the scores for each of the 16 spiritual gifts. Higher scores indicate a stronger alignment with that gift.</p>
+                <div style="position: relative; height:60vh; width:100%">
+                    <canvas id="resultsChart"></canvas>
+                </div>
+                <div class="navigation">
+                    <button id="restart-btn" class="outline">Retake Assessment</button>
+                </div>
+            </div>
+        `;
+
+        const ctx = document.getElementById('resultsChart').getContext('2d');
+
+        // Extract labels and values from the results data
+        const labels = Object.keys(data.scores);
+        const values = Object.values(data.scores);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Score',
+                    data: values,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 25,
+                        title: {
+                            display: true,
+                            text: 'Score (0-25)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Spiritual Gifts'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            window.location.reload();
+        });
     }
 
     renderQuestion();
