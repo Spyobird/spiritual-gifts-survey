@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const questions = JSON.parse(questionsDataElement.textContent);
     let currentQuestionIndex = 0;
-    const responses = {};
+    let responses = {};
+
+    let currentView = 'directions';
+    function switchView(viewName) {
+        currentView = viewName;
+        const views = ['directions', 'survey', 'results', 'info'];
+        views.forEach(v => {
+            document.getElementById(`view-${v}`).style.display = v === viewName ? 'block' : 'none';
+        });
+    }
 
     function renderQuestion() {
         const question = questions[currentQuestionIndex];
@@ -208,5 +217,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderQuestion();
+    switchView('directions');
 });
