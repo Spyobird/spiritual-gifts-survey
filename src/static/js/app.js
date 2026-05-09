@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = questions[currentQuestionIndex];
         const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
-        appContainer.innerHTML = `
+        document.getElementById('view-survey').innerHTML = `
             <div class="survey-container">
                 <div class="progress-wrapper">
                     <label>Question ${currentQuestionIndex + 1} of ${questions.length}</label>
@@ -63,23 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="grid">
                             <label>
                                 <input type="radio" name="answer" value="1" ${responses[currentQuestionIndex] === 1 ? 'checked' : ''}>
-                                1 - Strongly Disagree
+                                1 - Not at all true for me
                             </label>
                             <label>
                                 <input type="radio" name="answer" value="2" ${responses[currentQuestionIndex] === 2 ? 'checked' : ''}>
-                                2 - Disagree
+                                2 - Occasionally true (about 25%)
                             </label>
                             <label>
                                 <input type="radio" name="answer" value="3" ${responses[currentQuestionIndex] === 3 ? 'checked' : ''}>
-                                3 - Neutral
+                                3 - Sometimes true (about 50%)
                             </label>
                             <label>
                                 <input type="radio" name="answer" value="4" ${responses[currentQuestionIndex] === 4 ? 'checked' : ''}>
-                                4 - Agree
+                                4 - Most of the time true
                             </label>
                             <label>
                                 <input type="radio" name="answer" value="5" ${responses[currentQuestionIndex] === 5 ? 'checked' : ''}>
-                                5 - Strongly Agree
+                                5 - Definitely true for me
                             </label>
                         </div>
                     </fieldset>
