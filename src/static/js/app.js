@@ -20,6 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function renderDirections() {
+        const container = document.getElementById('view-directions');
+        container.innerHTML = `
+            <div class="directions-container">
+                <h3>Welcome to the Spiritual Gifts Survey</h3>
+                <p>This is a tool for self-discovery, not a test—there are no right or wrong answers. The survey consists of 80 statements—some reflect concrete actions, some are descriptive traits, and others are statements of belief.</p>
+                <p><strong>To get the most accurate results:</strong></p>
+                <ul>
+                    <li><strong>Be honest with yourself.</strong> Select the response that you feel best characterizes you.</li>
+                    <li><strong>Trust your first instinct.</strong> Don't spend too much time on any one item. Usually, your immediate response is best.</li>
+                    <li><strong>Work independently.</strong> To ensure the results reflect your own gifts, do not ask others how they are answering or how they think you should answer.</li>
+                    <li><strong>Go at your own pace.</strong> Take the time you need, but try not to overthink the questions.</li>
+                </ul>
+                <button id="start-survey-btn">Start Survey</button>
+            </div>
+        `;
+        document.getElementById('start-survey-btn').addEventListener('click', () => {
+            switchView('survey');
+            renderQuestion();
+        });
+    }
+
+    renderDirections();
+    switchView('directions');
+
     function renderQuestion() {
         const question = questions[currentQuestionIndex];
         const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -217,5 +242,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    switchView('directions');
 });
