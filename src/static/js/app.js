@@ -173,8 +173,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function restartQuiz() {
+        responses = {}; // Clear answers
+        currentQuestionIndex = 0; // Reset index
+        switchView('directions');
+        renderDirections();
+    }
+
     async function finishSurvey() {
-        appContainer.innerHTML = `
+        switchView('results');
+        document.getElementById('view-results').innerHTML = `
             <div class="results-placeholder">
                 <h3>Assessment Complete!</h3>
                 <p>Thank you for completing the survey. Your results are being calculated...</p>
@@ -199,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderResults(data);
         } catch (error) {
             console.error('Error submitting survey:', error);
-            appContainer.innerHTML = `
+            document.getElementById('view-results').innerHTML = `
                 <div class="error-container">
                     <h3>Submission Error</h3>
                     <p>Sorry, there was a problem calculating your results: ${error.message}</p>
@@ -211,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderResults(data) {
-        appContainer.innerHTML = `
+        document.getElementById('view-results').innerHTML = `
             <div class="results-container">
                 <h3>Your Spiritual Gifts Profile</h3>
                 <p>Below are the scores for each of the 16 spiritual gifts. Higher scores indicate a stronger alignment with that gift.</p>
@@ -219,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <canvas id="resultsChart"></canvas>
                 </div>
                 <div class="navigation">
-                    <button id="restart-btn" class="outline">Retake Assessment</button>
+                    <button id="view-info-btn">View Gift Descriptions</button>
+                    <button id="restart-btn" class="outline">Restart Survey</button>
                 </div>
             </div>
         `;
@@ -269,9 +278,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        document.getElementById('restart-btn').addEventListener('click', () => {
-            window.location.reload();
+        document.getElementById('view-info-btn').addEventListener('click', () => {
+            switchView('info');
+            renderInfo();
         });
+
+        document.getElementById('restart-btn').addEventListener('click', restartQuiz);
     }
 
 });
