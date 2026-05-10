@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('view-info');
         let html = `<h3>Understanding Your Gifts</h3><div class="gift-list">`;
         for (const [gift, desc] of Object.entries(GIFT_DESCRIPTIONS)) {
-            html += `<div class="gift-item"><strong>${gift}</strong>: ${desc}</div>`;
+            html += `<div class="gift-item"><strong>${gift}</strong>: ${desc}</div><br>`;
         }
         html += `</div><div class="navigation"><button id="back-to-results-btn">Back to Results</button></div>`;
         container.innerHTML = html;
