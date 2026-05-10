@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="results-container">
                 <h3>Your Spiritual Gifts Profile</h3>
                 <p>Below are the scores for each of the 16 spiritual gifts. Higher scores indicate a stronger alignment with that gift.</p>
-                <div style="position: relative; height:60vh; width:100%">
+                <div style="position: relative; min-height:80vh; width:100%">
                     <canvas id="resultsChart"></canvas>
                 </div>
                 <div class="navigation">
@@ -235,9 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ctx = document.getElementById('resultsChart').getContext('2d');
 
-        // Extract labels and values from the results data
-        const labels = Object.keys(data.scores);
-        const values = Object.values(data.scores);
+        // Sort scores descending
+        const sortedEntries = Object.entries(data.scores).sort((a, b) => b[1] - a[1]);
+        const labels = sortedEntries.map(entry => entry[0]);
+        const values = sortedEntries.map(entry => entry[1]);
 
         new Chart(ctx, {
             type: 'bar',
@@ -252,10 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }]
             },
             options: {
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    y: {
+                    x: {
                         beginAtZero: true,
                         max: 25,
                         title: {
@@ -263,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             text: 'Score (0-25)'
                         }
                     },
-                    x: {
+                    y: {
                         title: {
                             display: true,
                             text: 'Spiritual Gifts'
@@ -285,5 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('restart-btn').addEventListener('click', restartQuiz);
     }
+
 
 });
