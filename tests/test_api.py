@@ -12,7 +12,7 @@ def client():
 def test_score_api_success(client):
     payload = {str(i): 5 for i in range(1, 81)}
     response = client.post('/api/score',
-                           data=json.dumps(payload),
+                           data=json.dumps({"responses": payload}),
                            content_type='application/json')
     assert response.status_code == 200
     data = response.get_json()
