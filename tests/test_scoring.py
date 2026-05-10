@@ -1,7 +1,5 @@
 from src.scoring import calculate_scores
 
-from src.scoring import calculate_scores
-
 def test_calculate_scores_varied():
     # Response for question 1 (index 0) is 5
     # Response for question 2 (index 1) is 1

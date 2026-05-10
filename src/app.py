@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from scoring import calculate_scores
+from src.scoring import calculate_scores
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static')

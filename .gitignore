@@ -1,5 +1,6 @@
 .env
 .claude
+.playwright-mcp
 venv
 
 litellm_config.yaml

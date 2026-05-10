@@ -49,8 +49,8 @@ The application is implemented as a Single-Page Application (SPA) to provide a s
 
 ## Development Pitfalls
 
-- **Worktree Isolation**: Remember that `git worktree` only clones tracked files. Untracked resources (e.g., `references/`) must be manually copied into the worktree if required.
+- **Worktree Isolation**: Remember that `git worktree` only clones tracked files. Untracked resources (e.g., `references/`, `venv/`) must be manually copied or referenced by absolute path from the main repository.
+- **TDD Discipline**: Run tests after every task, not just at the end of a feature. This catches spec-test mismatches (e.g., payload structure) early.
 - **Merge Verification**: Never rely on test results alone to verify a merge. Always check `git log` on the destination branch to confirm the feature commits are present.
 - **Test Context**: When running tests after a merge or branch switch, verify the `rootdir` in the `pytest` output to ensure you are testing the intended target, not a cached worktree.
-- **Python Path**: When running `pytest` from the root, ensure the current directory is in the path (e.g., `export PYTHONPATH=. && pytest`) to avoid `ModuleNotFoundError` for the `src` package.
 - **Worktree Cleanup**: Always `cd` to the main repository root before executing `git worktree remove` to avoid CWD-related deletion failures.
